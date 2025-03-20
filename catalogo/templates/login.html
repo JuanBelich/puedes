@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Iniciar sesion {% endblock title %}
+
+{% block content %}
+
+    <div class="login-form">
+        <h2>Iniciar Sesión</h2>
+        <form action="/login" method="POST">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Iniciar Sesión">
+        </form>
+        <div class="forgot-password">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>   
+
+{% endblock content %}

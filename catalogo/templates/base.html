@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> {% block title %} {% endblock title %} </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}"
+    />
+</head>
+
+<body>
+    <header>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Inicio</a></li>
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+                {% comment %} <li><a href="#">Favoritos</a></li>
+                <li><a href="#">Perfil</a></li> {% endcomment %}
+            </ul>
+            <img class="logo" src="{% static 'image/logo.webp' %}" alt="">
+        </nav>
+    </header>
+    {% block content %}
+    
+    {% endblock content %}
+</body>
+</html>

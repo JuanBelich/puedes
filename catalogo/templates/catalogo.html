@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Catalogo de productos
+{% endblock title %}
+
+{% block content %}
+
+    <ul class="libros-grid">
+        
+        {% for Libro in Libros %}
+
+            <li class="libro-item">
+                <div class="libro-imagen">
+                    <img src="{{ Libro.imagen_url }}" alt="{{ Libro.nombre_libro }}">
+                </div>
+
+                <div class="libro-info">
+                    <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
+                    <p class="libro-autor">{{ Libro.autor }}</p>
+                    <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
