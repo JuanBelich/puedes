@@ -9,7 +9,6 @@ class Libro(models.Model):
     año=models.CharField(max_length=7)
     isbn=models.CharField(max_length=50)
     valor_saberes=models.BigIntegerField(null=False)
-    # preguntar a los bibliotecarios o administradores que datos sobre libros mostrar en las tablas
 
     def __str__(self):
         return self.nombre_libro
@@ -19,4 +18,20 @@ class Libro(models.Model):
         managed = True
         verbose_name = 'Libro'
         verbose_name_plural = 'Libros'
-        
+    
+class Usuarios(models.Model):
+    nombre= models.CharField(max_length=50, null=False)
+    apellido= models.CharField(max_length=50, null=False)
+    fecha_nacimiento= models.DateField(null=False)
+    direccion= models.CharField(max_length=50, null=False)
+    telefono= models.CharField(max_length=50, null=False)
+    
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
+    

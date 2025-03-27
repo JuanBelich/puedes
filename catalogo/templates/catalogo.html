@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
-    Catalogo de productos
+    Catalogo de Libros
 {% endblock title %}
 
 {% block content %}
+
+    <h1 style="text-align: center; ">Libros Disponibles</h1>
 
     <ul class="libros-grid">
         
@@ -20,8 +23,135 @@
                     <p class="libro-autor">{{ Libro.autor }}</p>
                     <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
                 </div>
+
+                <div class="tag-btn">
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=""> Editar libro </button>
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=""> Eliminar libro </button>
+                </div>
             </li>
-        {% endfor %}
+            {% endfor %}
     </ul>
+    {% comment %} modal para agregar libros {% endcomment %}
+    <!-- Botón para abrir el modal -->
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro"> Agregar libro </button>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="agregarLibro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title">Alta de libro</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-control" id="libroForm" method="post" action="{% url 'agregar_libro' %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="id_nombre_libro">Nombre del Libro*</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="nombre_libro"
+                              name="nombre_libro"
+                              required
+                              maxlength="50"
+                            />
+                          </div>
+            
+                          <div class="form-group">
+                            <label for="id_autor">Autor*</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="autor"
+                              name="autor"
+                              required
+                              maxlength="50"
+                            />
+                          </div>
+            
+                          <div class="form-group">
+                            <label for="id_editorial">Editorial</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="editorial"
+                              name="editorial"
+                              maxlength="50"
+                            />
+                          </div>
+                        </div>
+            
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="id_edicion">Edición</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="edicion"
+                              name="edicion"
+                              maxlength="50"
+                            />
+                          </div>
+            
+                          <div class="form-group">
+                            <label for="id_año">Año de Publicación</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="año"
+                              name="año"
+                              maxlength="7"
+                            />
+                          </div>
+            
+                          <div class="form-group">
+                            <label for="id_isbn">ISBN</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="isbn"
+                              name="isbn"
+                              maxlength="50"
+                              placeholder="Ej: 978-3-16-148410-0"
+                            />
+                          </div>
+                        </div>
+                      </div>
+            
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="id_valor_saberes">Valor en Saberes*</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="valor_saberes"
+                              name="valor_saberes"
+                              required
+                              min="0"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Libro</button>
+                    </div>
+                </form>
+                
+            
+            </div>
+        </div>
+        </div>
+    </div>
 
 {% endblock %}
