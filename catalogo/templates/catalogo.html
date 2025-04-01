@@ -25,8 +25,8 @@
                 </div>
 
                 <div class="tag-btn">
-                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=""> Editar libro </button>
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=""> Eliminar libro </button>
+                  <a href="{% url 'editar_libro' Libro.id %}"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=""> Editar libro </button></a>
+                  <a href="{% url 'eliminar_libro' Libro.id %}"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=""> Eliminar libro </button></a>
                 </div>
             </li>
             {% endfor %}

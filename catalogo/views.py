@@ -26,11 +26,17 @@ def agregar_libro(request):
     
     return render(request, 'agregarLibro.html')
 
-def editar_libro(request):
-    return render(request, 'agregarLibro.html')
+def eliminar_libro(request,id):
+    libro = Libro.objects.get(id=id)
+    libro.delete()
+    return redirect('catalogo')
 
-def eliminar_libro(request):
-    return render(request, 'agregarLibro.html')
+
+
+def editar_libro(request,id):
+    return HttpResponse(f"editar el id: {id}")
+
+
 
 
 
