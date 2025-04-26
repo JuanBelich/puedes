@@ -8,6 +8,7 @@ class Libro(models.Model):
     edicion=models.CharField(max_length=50)
     año=models.CharField(max_length=7)
     isbn=models.CharField(max_length=50)
+    portada = models.ImageField(upload_to='portada/', blank=True, null=True)
     valor_saberes=models.BigIntegerField(null=False)
 
     def __str__(self):

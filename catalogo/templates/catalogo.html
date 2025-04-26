@@ -15,13 +15,14 @@
 
             <li class="libro-item">
                 <div class="libro-imagen">
-                    <img src="{{ Libro.imagen_url }}" alt="{{ Libro.nombre_libro }}">
+                  <img src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
                 </div>
 
                 <div class="libro-info">
                     <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
                     <p class="libro-autor">{{ Libro.autor }}</p>
                     <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
+                    
                 </div>
 
                 <div class="tag-btn">
@@ -48,7 +49,8 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-control" id="libroForm" method="post" action="{% url 'agregar_libro' %}">
+              <form class="form-control" id="libroForm" method="post" action="{% url 'agregar_libro' %}" enctype="multipart/form-data">
+
                     {% csrf_token %}
                     <div class="modal-body">
                       <div class="row">
@@ -111,6 +113,15 @@
                               maxlength="7"
                             />
                           </div>
+
+                          <div class="form-group">
+                            <label for="Portada">Portada</label>
+                            <input type="file" 
+                            class="form-control" 
+                            id="portada" 
+                            name="portada" 
+                            accept="image/*" />
+                          </div>
             
                           <div class="form-group">
                             <label for="id_isbn">ISBN</label>
@@ -152,6 +163,7 @@
             </div>
         </div>
         </div>
+        
     </div>
 
 {% endblock %}

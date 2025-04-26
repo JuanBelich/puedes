@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import *
@@ -20,7 +22,9 @@ def agregar_libro(request):
             edicion=request.POST.get('edicion'),
             año=request.POST.get('año'),
             isbn=request.POST.get('isbn'),
-            valor_saberes=request.POST.get('valor_saberes')
+            valor_saberes=request.POST.get('valor_saberes'),
+            portada = request.FILES.get('portada')
+
         )
         return redirect('catalogo')  # Redirige a la vista catalogo
     
@@ -28,6 +32,10 @@ def agregar_libro(request):
 
 def eliminar_libro(request,id):
     libro = Libro.objects.get(id=id)
+    if libro.portada:
+        imagen_path = os.path.join(settings.MEDIA_ROOT, str(libro.portada))
+        if os.path.isfile(imagen_path):
+            os.remove(imagen_path)
     libro.delete()
     return redirect('catalogo')
 
@@ -44,12 +52,23 @@ def editar_libro(request,id):
 # Apartado de login
 
 def login(request):
-    return render(request,'login.html')
+    return render(request,"login.html")
 
-def registro(request):
-    return render(request,'registro.html')
+def singup(request):
+    return render(request, 'singup.html')
 
+def recuperar(request):
+    return render(request, 'recuperar.html')
+
+
+#Apartado general
 
 def index(request):
-    return render(request,'index.html')
+    libros = Libro.objects.all()
+    ctx= {
+        "Libros": libros
+    }
+    return render (request,'index.html',ctx)
 
+def about(request):
+    return render (request, "about.html")

@@ -2,29 +2,99 @@
 {% load static %}
 
 {% block content %}
-    <div>
-        <h1 >PUEDES</h1>
-        <p >Biblioteca Digital Universidad Nacional de Córdoba en colaboración con Barrio Bella Vista</p>
+        
+
+<!-- Header Section ends-->
+
+
+<!-- Home Section starts-->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>PUEDES</h3>
+        <span>Biblioteca Popular de Bella Vista</span>
+        <p>Sistema de lectura, intercambio de libros entre la Universidad Nacional de Córdoba y la biblioteca del barrio Bella Vista</p>
+        {% comment %} <a href="#" class="btn">Catálogo</a> {% endcomment %}
+    </div>  
+
+</section>
+
+<!-- Home Section ends-->
+
+<!-- icons section starts -->
+
+<section class="icons-container">
+
+    <div class="icons">
+        <img src="{% static 'img/donate-a-book.jpg' %}" alt="Donar un libro">
+        <div class="info">
+            <h3>Doná un libro</h3>
+            <span></span>
+        </div>
     </div>
 
-    <br>
-    <br>
+    <div class="icons">
+        <img src="{% static 'img/intercambiar-libro.jpg' %}" alt="Intercambia libros">
+        <div class="info">
+            <h3>Intercambia libros</h3>
+            <span></span>
+        </div>
+    </div>    
 
-    <div class='titulo'>
-        <h2 >GÉNEROS</h2>
-            <ul>
-                <li>Aventuras</li>
-                <li>Ciencia Ficción</li>
-                <li>Policial</li>
-                <li>Paranormal</li>
-                <li>Nobela</li>
-                <li>Drama</li>
-                <li>Psicologia</li>
-                <li>Cuentos</li>
-            </ul>
+    <div class="icons">
+        <img src="{% static 'img/lectura.jpg' %}" alt="Conocé nuevos mundos">
+        <div class="info">
+            <h3>Conocé nuevos mundos</h3>
+            <span></span>
+        </div>
     </div>
-    <br>
-    <br>
-    <h1> "La lectura: un viaje sin moverse" </h1>
+
+    <div class="icons">
+        <img src="{% static 'img/grupo-de-lectura.png' %} " alt="Intercambia ideas con otros lectores">
+        <div class="info">
+            <h3>Compartí ideas</h3>
+            <span></span>
+        </div>
+    </div>
+
+
+
+</section>
+
+
+
+<!-- Products section starts-->
+
+<section class="products" id="products">
+
+    <h1 class="heading"> Catálogo de <span> Libros </span></h1>
+    <ul class="libros-grid">
+        
+        {% for Libro in Libros %}
+
+            <li class="libro-item">
+                <div class="libro-imagen">
+                    <img src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
+                </div>
+                <div class="image">
+                    <img src="" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn">Reseña</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="libro-info">
+                    <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
+                    <p class="libro-autor">{{ Libro.autor }}</p>
+                    <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
+                </div>
+            </li>
+            {% endfor %}
+    </ul>
+
+    
+</section>
 
 {% endblock content %}

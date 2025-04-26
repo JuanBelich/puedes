@@ -1,25 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %} Iniciar sesion {% endblock title %}
 
 {% block content %}
-
-    <div class="login-form">
-        <h2>Iniciar Sesión</h2>
-        <form action="/login" method="POST">
-            <label for="username">Usuario:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-
-            <input type="submit" value="Iniciar Sesión">
-        </form>
-        <div class="forgot-password">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <a href="/registro">Registrarse</a>
+<section class="login-page">
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h3>Bienvenido</h3>
+                <form action="">
+                    <div class="input-box">
+                        <input type="text" placeholder="Email" class="input-control">
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Password" class="input-control">
+                    <div class="input-link">
+                        <a href="{% url 'recuperar' %}" class="gradient-text">Has olvidado tu contraseña</a>
+                    </div> 
+                   </div>
+                   <button type="submit" class="btn"> Iniciar Sesión</button>
+                </form>
+                <p>¿No tienes una cuenta? <a href="{% url 'singup' %}" class="gradient-text">Crear cuenta</a> </p>
+            </div>
         </div>
-    </div>   
+    </section>    
+</section>
 
 {% endblock content %}
