@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
---green: hsl(162, 45%, 56%);
---lead: hsl(162, 2%, 56%);
+--green: hsl(56, 64%, 63%);
+--lead: hsl(51, 94%, 35%);
 --blue: hsl(220, 85%, 57%);
 --violet: hsl(272, 92%, 32%);
 --text-white: hsl(260, 100%, 99%);
 --text-ligth-gray: hsl(0, 0%, 100%);
---body-bg-color: hsl(200, 54%, 12%);
---glass-bg-color: hsl(0, 0%, 100%, 0.05);
+--body-bg-color: hsl(0, 53%, 21%);
+/* --body-bg-color: hsl(200, 54%, 12%); */
+--glass-bg-color: hsla(0, 0%, 95%, 0.05);
 --border-color: hsl(0, 0%, 100%, 0.25);
 --blur: blur(10px);
 --button-hover-color: hsla(0, 0%, 0%, 0.3);
@@ -16,14 +17,13 @@
 
 
 .login-page{
-    background-color: var(--body-bg-color);
-    color: var(--text-white);
+    background-color: var(--body-bg-color); 
+    color: var(--text-white); 
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-size: 16px;
     line-height: 1.5;
     overflow: hidden;
-
 }
 
 .login-page::after,
@@ -36,6 +36,8 @@
     z-index: -1;
     filter: blur(150px);
     opacity: 0.5;
+
+
 }
 .login-page::before{
     background-color: var(--blue);
@@ -54,6 +56,7 @@ a{
     text-decoration: none;
     font-weight: 500;
     display: inline-block;
+    
 }
 
 .gradient-text{
@@ -70,6 +73,7 @@ a{
     align-items: center;
     justify-content: center;
     overflow: hidden;
+
 }
 
 .form-content{
@@ -77,15 +81,18 @@ a{
     max-width: 450px;
     position: relative;
     z-index: 1;
+    background-color: hsl(0, 47%, 33%); 
+    color: var(--text-white);
+    border-radius: 5%;
 }
 
 
 .form-content .box{
-   border-color: var(--glass-bg-color);
-   border: 1px solid var(--border-color);
-   padding: 40px 50px;
-   border-radius: 20px;
-
+border-color: var(--glass-bg-color);
+border: 2px solid var(--border-color);
+padding: 40px 50px;
+border-radius: 20px;
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.45);
 }
 
 .form-content .h3{

@@ -47,12 +47,14 @@ header{
     position: fixed;
     top:0; left: 0; right: 0;
     background: var(--pantone1807Rojo);
-    padding: 0.8rem;
+    /* padding: 0.8rem; */
+    padding: 15px 50px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     z-index: 1000;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    text-decoration: none;
 }
 
 header .logo{
@@ -74,6 +76,7 @@ header .navbar a{
     font-size: 1.5rem;
     padding: 0 1.5rem;
     color: #f7f5f5;
+    text-decoration: none;
 }
 
 header .navbar a:hover{
@@ -84,6 +87,7 @@ header .icons a{
     font-size: 2.5rem;
     color: #d4b013d2;
     margin-left: 1rem;
+    text-decoration: none;
 }
 
 header .icons a:hover{
@@ -111,7 +115,8 @@ header .fa-bars{
     display: flex;
     align-items: center;
     min-height: 100vh;
-    background:url("../img/biblioteca2.jpg") no-repeat ;
+    /* background:url("../img/biblioteca2.jpg") no-repeat ; */
+    background:url("../img/header_pic_dark_dark.jpg") no-repeat ;
     background-size: cover;
     background-position: center;
     
@@ -124,7 +129,7 @@ header .fa-bars{
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 60%);
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 50%);
     pointer-events: none; /* Permite interactuar con elementos debajo */
 }
 
@@ -136,8 +141,8 @@ header .fa-bars{
 .home .content h3{
     font-size: 6rem;
     color: #eed706;
-    text-shadow: 4px 4px 10px rgba(7, 0, 0, 0.995); /* Sombra para mejorar legibilidad */
-    
+     text-shadow: 15px 9px 7px rgba(0, 0, 0, 0.995); /*Sombra para mejorar legibilidad */
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
     
 }
 
@@ -146,7 +151,7 @@ header .fa-bars{
     color: #ffd000d7;
     padding: 1rem 0;
     line-height: 1.5;
-    text-shadow: 4px 4px 10px rgba(7, 0, 0, 0.995); /* Sombra para mejorar legibilidad */
+    text-shadow: 15px 7px 7px rgba(139, 122, 10, 0.995); /* Sombra para mejorar legibilidad */
 }
 
 .home .content p{
@@ -154,7 +159,7 @@ header .fa-bars{
     color: #ffffff;
     padding: 1rem 0;
     line-height: 1.5;
-    text-shadow: 4px 4px 10px rgba(7, 0, 0, 0.995); /* Sombra para mejorar legibilidad */
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.995); /* Sombra para mejorar legibilidad */
 }
 
 
@@ -261,10 +266,10 @@ header .fa-bars{
     text-align: center;
     font-size: 4rem;
     color: #333;
-    padding: 1rem;
-    margin: 2rem 0;
-    background: rgba(255, 51, 153,.05);
-    padding-top: 1%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: rgba(175, 11, 93, 0.986);
+    padding-top: 0.5%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
 }
 
 .heading span{
@@ -362,7 +367,7 @@ section{
     font-size: 4rem;
     color: #333;
     padding: 1rem;
-    margin: 2rem 0;
+    margin: 20rem 0;
     background: rgba(255, 51, 153,.05);
     padding-top: 10%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
 }
@@ -397,6 +402,7 @@ header{
     justify-content: space-around;
     z-index: 1000;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    
 }
 
 header .logo{
