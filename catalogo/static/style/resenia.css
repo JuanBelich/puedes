@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    line-height: 1.5;
+    background-image: url(imgPortadas/Gray\ textured\ Online\ Webinar\ Zoom\ Virtual\ Background\ \(3992\ x\ 2456\ px\).png) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    left: 50%;
+    gap: 5rem
+    ;
+}
+
+.img-catalogo-resenia{
+    width: 100rem; 
+    display: block;
+}
+
+.img-display{
+    overflow: hidden;
+}
+
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+    
+}
+
+.img-showcase img{
+    min-width: 100%;
+}
+
+/* .img-select{
+    display: flex;
+}
+
+.img-item{
+    margin: 0.3rem;
+}
+
+.img-item:nth-child(1), .img-item:nth-child(2), .img-item:nth-child(3){
+    margin-right: 0;
+}
+
+.img-item:hover{
+    opacity: 0.8;
+} */
+
+.product-content{
+    padding: 2rem 1rem;
+}
+
+.product-title{
+    font-size: 3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: #122563;
+    margin: 1rem 0;
+}
+
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #122563;
+}
+
+.product-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    background: #a70a0a;
+    color: #fff;
+    padding: 0 0.3rem;
+    transition: all 0.5s ease;
+}
+
+.product-link:hover{
+    opacity: 0.9;
+}
+
+.product-rating{
+    color: #ffc107;
+}
+
+.product-rating-span{
+    font-weight: 600;
+    color: #252525;
+}
+
+.price-saberes{
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.price-saberes-span{
+    font-weight: 400;
+}
+
+/*h2*/
+.book-title{
+    text-transform: capitalize;
+    color: #122563;
+    padding-bottom: 0.6rem;
+}
+
+.book-product-detail-ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.book-autor-title, .book-genero-title, .book-editorial-title, .book-year-title{
+    margin: 0;
+    list-style: none;
+    background: url(imgPortadas/libro-abierto-300x207.png) left center no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.book-info-title{
+    margin: 0.4rem 0;
+    list-style: none;
+    background: url(imgPortadas/libro-abierto-300x207.png) left top no-repeat;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    font-weight: 600;
+    opacity: 0.9;
+    line-height: 1.5; /* Asegura alineación adecuada */
+}
+
+.book-autor-span, .book-genero-span, .book-editorial-span, .book-year-span, .book-info-span{
+    font-weight: 400;
+}
+
+.btn-catalog{
+     background: linear-gradient(to right, #ff4d4d, #cc0000); /* degradé rojo */
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px; /* bordes semi redondeados */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+@media screen and (min-width: 992px) {
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        height: 100vh;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}
+
+

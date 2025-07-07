@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Catalogo de Libros
+{% endblock title %}
+
+{% block content %}
+
+
+{% load groups %}
+    <h1 class="titulo-catalogo" >Libros Disponibles</h1>
+
+    <ul class="libros-grid">
+        
+        {% for Libro in Libros %}
+
+            <li class="libro-item">
+                <div class="libro-imagen">
+                  <img src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
+                </div>
+
+                <div class="libro-info">
+                 
+                        <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
+                        
+                                   
+                    <p class="libro-autor">{{ Libro.autor }}</p>
+                    <p class="libro-genero">Género: {{ Libro.genero }}</p>
+                    <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
+                    
+                    <form action="{% url 'toggle_favorito' Libro.id %}" method="post">
+                        {% csrf_token %}
+                        {% if Libro in request.user.perfil.favoritos.all %}
+                            <button type="submit">Quitar de favoritos</button>
+                        {% else %}
+                            <button type="submit">Agregar a favoritos</button>
+                        {% endif %}
+                    </form>
+                    
+                </div>
+
+                <div class="tag-btn">
+                  {% if user|has_group:"Bibliotecario"%}
+                    <a href="{% url 'editar_libro' Libro.id %}"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=""> Editar libro </button></a>
+                    <a href="{% url 'eliminar_libro' Libro.id %}"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=""> Eliminar libro </button></a>
+                  {% endif %}
+                </div>
+            </li>
+            {% empty %}
+                <li class="libro-item">
+                    <p>No hay libros cargados en el catálogo.</p>
+                </li>
+            {% endfor %}
+    </ul>
+
+
+    <!-- Button trigger modal -->
+    {% if user|has_group:"Bibliotecario" %}
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro"> Agregar libro </button>
+    {% endif %}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="agregarLibro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title">Alta de libro</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+               <form class="form-control" id="libroForm" method="post" action="{% url 'agregar_libro' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <!-- Campos del formulario para los datos del libro -->
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              {{formulario.as_p}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+              
+                      <!-- ...campos de texto, archivo, select, etc... -->
+                      <div class="modal-footer">
+                      <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
+                          <i class="fas fa-times"></i> Cancelar
+                      </button>
+
+                      <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Libro</button>
+                      </div>
+                </form>
+                
+            
+            </div>
+        </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %} Reseña {% endblock title %}
+
+
+{% block content %}
+<body>
+    <div class="card-wrapper">
+        <div class="card">
+            <!--card left-->
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase">
+                        <img class="img-catalogo-resenia" src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
+                    </div>
+                </div>
+                <!-- <div class="img-select">
+                    <div class="img-item">
+                        <a href="#" data-id="1">
+                            <img src="imgPortadas/Bellas durmientas.webp" alt="libro">
+                        </a>
+                    </div> -->
+
+                </div>
+            </div>
+            <!--card right-->
+            <div class="product-content">
+                <h2 class="product-title"> {{Libro.nombre_libro}}</h2>
+                <a href="#" class="product-link"> Biblioteca Bella Vista</a>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="product-rating-span" >4.7(21)</span>
+                </div>
+                <div class="product-price-saberes">
+                    <p class="price-saberes">Saberes: <span class="price-saberes-span">{{Libro.valor_saberes}}</span></p>
+                </div>
+                <div class="book-product-detail">
+                    <!--Titulo del libro-->
+                    <!-- <h2 class="book-title"> Bellas Durmientes</h2>  -->
+                    <ul class="book-product-detail-ul">
+                        <!--Autor del libro-->
+                        <li class="book-autor-title">Autor: <span class="book-autor-span"> {{Libro.autor}}</span></li>
+                        <!--Genero del libro-->
+                        <li class="book-genero-title">Género: <span class="book-genero-span">{{Libro.genero}}</span></li>
+                        <!--Editorial del libro-->
+                        <li class="book-editorial-title">Editorial: <span class="book-editorial-span">{{Libro.editorial}}</span></li>
+                        <!--Año del libro-->
+                        <li class="book-year-title">Año de Publicación: <span class="book-year-span">{{Libro.año}}</span></li>
+                        <!--Descripcion del libro-->
+                        <li class="book-info-title">Descripción: <span class="book-info-span">{{Libro.resenia}}</span></li>
+                    </ul> 
+                </div>
+                <div class="catalog-button">
+                    <button type="button" class="btn-catalog" onclick="window.location.href='{% url 'index' %}'">Volver a Inicio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

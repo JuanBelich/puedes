@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% load groups %}
+
+{% block title %} Perfil de Usuario {% endblock title %}
+
+{% block extra_css %}
+    <!-- Fuente Poppins opcional -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600display=swap" rel="stylesheet">
+    <style>
+        body, .font-poppins { font-family: 'Poppins', sans-serif; }
+        .favorito-img { width: 150px; height: 450px; object-fit: cover; }
+
+        
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    {{ block.super }}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container-fluid min-vh-100 font-poppins bg-light py-5">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <!-- Columna izquierda: Perfil -->
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    {% comment %} <div class="mb-3">
+                        <img src="{% static 'User_img/489948073_10236340187474647_6526225655919352765_n.jpg' %}" alt="Sol" class="rounded-circle shadow" style="width:120px; height:120px; object-fit:cover;">
+                    </div> {% endcomment %}
+                    <h2 class="fw-bold mb-2">{{ perfil.nombre }} {{ perfil.apellido }}</h2>
+                    <div class="mb-3">
+                        <a href="{% url 'singout' %}" class="btn btn-danger">Cerrar Sesión</a>
+                    </div>
+                    <ul class="list-group mb-4 text-start">
+                        <li class="list-group-item"><strong>SABERES:</strong> {{ perfil.saber }}</li>
+                        <li class="list-group-item"><strong>Edad:</strong> {{ perfil.edad }}</li>
+                        <li class="list-group-item"><strong>Dirección:</strong> {{ perfil.direccion }}</li>
+                        <li class="list-group-item"><strong>Barrio:</strong> {{ perfil.barrio }}</li>
+                        <li class="list-group-item"><strong>Teléfono:</strong> {{ perfil.telefono }}</li>
+                    </ul>
+                    {% if request.user|has_group:"Bibliotecario" %}
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#buscarUsuarioModal">
+                        Buscar usuario
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Columna derecha: Favoritos -->
+        <div class="col-lg-8 col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Libros Favoritos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        {% for libro in perfil.favoritos.all %}
+                        <div class="col-md-4 col-sm-1 col-1">
+                            <div class="card h-100">
+                                <img src="{{ libro.portada.url }}" alt="Portada de {{ libro.nombre_libro }}" class="card-img-top favorito-img">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ libro.nombre_libro }}</h5>
+                                    <p class="card-text mb-1"><strong>Autor:</strong> {{ libro.autor }}</p>
+                                    <p class="card-text mb-1"><strong>Género:</strong> {{ libro.genero }}</p>
+                                    <p class="card-text mb-2"><strong>Saberes:</strong> {{ libro.valor_saberes }}</p>
+                                    <form action="{% url 'toggle_favorito' libro.id %}" method="post">
+                                        {% csrf_token %}
+                                        {% if libro in request.user.perfil.favoritos.all %}
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Quitar de favoritos</button>
+                                        {% else %}
+                                            <button type="submit" class="btn btn-outline-primary btn-sm">Agregar a favoritos</button>
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 text-center">
+                            <p>No hay libros favoritos.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de búsqueda de usuario para bibliotecario -->
+{% if request.user|has_group:"Bibliotecario" %}
+<div class="modal fade" id="buscarUsuarioModal" tabindex="-1" aria-labelledby="buscarUsuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="buscarUsuarioModalLabel">Buscar usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            <form method="get" action="{% url 'buscar_usuario' %}">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese apellido">
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+            {% if usuarios_encontrados %}
+                <hr>
+                {% for usuario in usuarios_encontrados %}
+                    <p>
+                        <strong>{{ usuario.username }}</strong>
+                        ({{ usuario.perfil.nombre }} {{ usuario.perfil.apellido }})
+                    </p>
+                    <form method="post" action="{% url 'modificar_saber' usuario.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nuevo_saber_{{ usuario.id }}" class="form-label">Nuevo saldo de saberes:</label>
+                            <input type="number" class="form-control" id="nuevo_saber_{{ usuario.id }}" name="nuevo_saber" value="{{ usuario.perfil.saber }}">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </form>
+                    <hr>
+                {% endfor %}
+            {% elif busqueda_realizada %}
+                <p class="text-danger">Usuario no encontrado.</p>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if usuarios_encontrados or busqueda_realizada %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = new bootstrap.Modal(document.getElementById('buscarUsuarioModal'));
+        modal.show();
+    });
+</script>
+{% endif %}
+{% endblock content %}

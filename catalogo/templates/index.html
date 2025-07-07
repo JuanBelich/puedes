@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Header Section ends-->
+
+
+<!-- Home Section starts-->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>PUEDES</h3>
+        <span>Biblioteca Popular de Bella Vista</span>
+        <p>Sistema de lectura, intercambio de libros entre la Universidad Nacional de Córdoba y la biblioteca del barrio Bella Vista</p>
+        {% comment %} <a href="#" class="btn">Catálogo</a> {% endcomment %}
+    </div>  
+
+</section>
+
+<!-- Home Section ends-->
+
+<!-- icons section starts -->
+
+<section class="icons-container">
+
+    <div class="icons">
+        <img  src="{% static 'img/donate-a-book.jpg' %}" alt="Donar un libro" class="img_icons">
+        <div >
+            <h3 class="h-home-page">Doná un libro</h3>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img   src="{% static 'img/intercambiar-libro.jpg' %}" alt="Intercambia libros" class="img_icons">
+        <div >
+            <h3 class="h-home-page">Intercambiá libros</h3>
+            <span></span>
+        </div>
+    </div>    
+
+    <div class="icons">
+        <img  src="{% static 'img/lectura.jpg' %}" alt="Conocé nuevos mundos"  class="img_icons">
+        <div >
+            <h3 class="h-home-page">Conocé nuevos mundos</h3>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img   src="{% static 'img/grupo-de-lectura.png' %} " alt="Intercambia ideas con otros lectores" class="img_icons">
+        <div >
+            <h3 class="h-home-page">Compartí ideas</h3>
+            <span></span>
+        </div>
+    </div>
+
+
+
+</section>
+
+
+
+<!-- Products section starts-->
+
+<section class="products" id="products">
+
+    <h1 class="heading"> Catálogo de <span> Libros </span></h1>
+    <ul class="libros-grid">
+        
+        {% for Libro in Libros %}
+
+            <li class="libro-item">
+                <div class="libro-imagen">
+                    <img src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
+                </div>
+                <div class="image">
+                    <img src="" alt="">
+                    <div class="icons">
+                        <a href="#" id="corazon"class="fas fa-heart"></a>
+                        <a href="{% url 'resenia' Libro.id %}" class="cart-btn">Reseña</a>
+                        <a href="#" id="flecha" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="libro-info">
+                    <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
+                    <p class="libro-autor">{{ Libro.autor }}</p>
+                    <p class="libro-genero">Género: {{ Libro.genero }}</p>
+                    <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
+                </div>
+            </li>
+            {% empty %}
+                <li class="libro-item">
+                    <p>No hay libros cargados en el catálogo.</p>
+                </li>
+            {% endfor %}
+    </ul>
+
+    
+</section>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Crear cuenta
+{% endblock title %}
+
+{% block content %}
+<section class="login-page">
+    <section class="form-main">
+        <div class="form-content">
+            <div class="circle-1"></div>
+            <div class="circle-2"></div>
+            <div class="circle-3"></div>
+            <div class="box">
+                <h3>Crear una cuenta</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                
+                    <div class="input-box">
+                        {{ form.as_table }}
+                    </div>
+                    
+                    <button type="submit" class="btn"> Crear cuenta</button>
+                </form>
+                <p>¿Ya tienes una cuenta? <a href="{% url 'singin' %}" class="gradient-text">Iniciar sesión</a> </p>
+            </div>
+        </div>
+    </section>    
+</body>
+
+{% endblock content %}

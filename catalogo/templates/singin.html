@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %} Iniciar sesion {% endblock title %}
+
+{% block content %}
+<section class="login-page">
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h3>Bienvenido</h3>
+                        {{ error }}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form.as_table}}
+                            
+                            <button class='btn'> Iniciar Sesión</button>
+
+                        </form>
+                <p>¿No tienes una cuenta? <a href="{% url 'singup' %}" class="gradient-text">Crear cuenta</a> </p>
+            </div>
+        </div>
+    </section>    
+</section>
+
+{% endblock content %}

@@ -1,0 +1,586 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100%; margin: 0;
+}
+
+
+header {
+    background-color: #b5101b;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+header nav ul li a {
+    text-decoration: none;
+    color: #ffd103;
+    font-weight: bold;
+}
+header nav ul li a:hover {
+    text-decoration: underline;
+    color: black;
+}
+nav{
+    display: flex;
+}
+
+
+.titulo-catalogo{
+    text-align: center;
+    font-size: 4rem;
+    color: #333;
+    padding: 1rem;
+    margin: 2rem 15%;
+   background:
+        linear-gradient(45deg, rgba(255, 235, 59, 0.8), rgba(207, 158, 10, 0.89)),
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+    padding-top: 1%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+    text-shadow: 2px 2px 4px white;
+    margin-top: 10rem; /* o lo que mida tu navbar */
+}
+
+.heading{
+    text-align: center;
+    font-size: 4rem;
+    color: #333;
+    padding: 1rem;
+    margin: 2rem 0;
+    background:
+        linear-gradient(45deg, rgba(255,0,0,0.8), rgba(139,0,0,0.8)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 4px);
+    padding-top: 1%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+    text-shadow: 4px 2px 8px white;
+}
+
+.heading span{
+    color:#333
+
+}
+/*icons*/
+/* .icons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+} */
+
+/* .icons {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+} */
+
+/* .icons:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+} */
+
+              /*     ABOUT      */
+
+.about .heading{
+    text-align: center;
+    font-size: 4rem;
+    color: #fdfdfd;
+    padding: 0.5rem;
+    margin:8rem 0;
+    background: #FFDB58;
+    /*padding-top: 0.5%; para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    text-transform: none;
+    margin-bottom: 1%;
+}
+
+.about .heading h1 {
+    text-transform: none;
+}
+
+.about .heading span{
+    color: rgba(228, 5, 5, 0.801);
+    text-transform: none;
+}
+
+.heading span{
+    text-transform: lowercase;
+}
+
+.about .row{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    padding-bottom: 3rem;
+}
+
+.about .row .video-container{
+    flex: 1 1 40rem;
+    position: relative;
+}
+
+.about .row .video-container video{
+    width: 100%;
+    border: 1.5rem solid #fff;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1 rgba(0, 0, 0, .5);
+    height: 100%;
+    object-fit: cover;
+}
+
+/*Texto de video*/
+
+.about .row .video-container h3{
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    font-size: 1.3rem;  /*para cambiar el tamaño de la letra del video */
+    /* color: #333; */
+    background: #ffffff;
+    width: 100%;
+    padding: 1rem 2rem;
+    text-align: center;
+    mix-blend-mode: screen;
+}
+
+.about .row .content{
+    flex: 1 1 40rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color: #cf0e0e;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.about .row .content p{
+    font-size: 1rem;
+    color: #999;
+    padding: .5rem 0;
+    padding-top: 1rem;
+    line-height: 1.5;
+}
+
+/* libros - home*/
+.products .libros-grid {
+    margin-top: 1%;
+    padding-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    list-style: none;
+    align-items: center;
+    text-align: center;
+}
+
+/*libros - seccion en el catalogo*/
+
+.libros-grid {
+    margin-top: 3.5%;
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    list-style: none;
+    align-items: center;
+    text-align: center;
+}
+
+.libro-item {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    padding-bottom: 15px;
+
+}
+
+.libro-item:hover {
+    transform: translateY(-5px);
+}
+
+/* .libro-imagen img {
+    width: 100%;
+    height: 1px;
+    display: block;
+} */
+
+.libro-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.libro-titulo {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.libro-autor {
+    font-size: 0.9em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.libro-valor {
+    font-size: 1.1em;
+    color: #000;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+
+.modal-title{
+    text-align: center;
+    color: #b5101b;
+} 
+
+
+
+/* CATALOGO - LIBROS*/
+.catalogo .libros-grid {
+    margin-top: 10%;
+    padding-top: 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    list-style: none;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+/* HOME RESPONSIVE*/
+
+
+
+/**********MEDIA QUERIES************/
+@media (max-width:991px){
+    html{
+        font-size: 92%;
+    }
+
+    header{
+        padding: 1.5rem;
+    }
+
+    section{
+        padding: 1.5rem;
+    }
+
+    .home{
+        background-position: left;
+    }
+}
+
+/*En el video esta parte es la de max-width 768*/
+@media (max-width:910px){
+    
+    header .fa-bars{
+        display: block;
+    }
+
+    header .navbar{
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #ba0808;
+        border-top: .1rem solid rgba(0, 0, 0, .1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /*esconde el menu desplegable*/
+    }
+/*esconde el menu desplegable mediante el checked:*/ 
+/*polygon(0 0, 100% 0, 100% 100%, 0% 100%) crea un rectángulo completo, lo que significa que la .navbar será visible cuando el checkbox esté marcado.*/
+    header #toggler:checked ~ .navbar{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .icons a{
+        font-size: 2rem;
+    }
+
+    header .navbar a{
+        margin: 1.5rem;
+        padding: 1.5rem;
+        background: #fcfafa ;
+        border: .1rem solid rgba(0, 0, 0, .1) ;
+        display: block;
+        color: var(--pantone518morado);
+    }
+
+    .home .content h3{
+        font-size: 5rem;
+    }
+
+    .home .content span{
+        font-size: 2.5rem;
+    }
+
+    .icons-container .icons h3{
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .libros-grid {
+        margin-top: 30%;
+        padding-top: 5%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        list-style: none;
+        align-items: center;
+        text-align: center;
+    }
+    
+}
+
+    @media (max-width:450px){
+        html{
+            font-size: 85%;
+        }
+    
+        header{
+            padding: 1.5rem;
+        }
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+        }
+    }
+
+
+
+
+
+/* ABOUT RESPONSIVE*/
+
+/**********MEDIA QUERIES************/
+@media (max-width:991px){
+    html{
+        font-size: 92%;
+    }
+
+    header{
+        padding: 1.5rem;
+    }
+
+    section{
+        padding: 1.5rem;
+    }
+
+    .home{
+        background-position: left;
+    }
+}
+
+/*En el video esta parte es la de max-width 768*/
+@media (max-width:910px){
+    
+    header .fa-bars{
+        display: block;
+    }
+
+    header .navbar{
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #ba0808;
+        border-top: .1rem solid rgba(0, 0, 0, .1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /*esconde el menu desplegable*/
+    }
+/*esconde el menu desplegable mediante el checked:*/ 
+/*polygon(0 0, 100% 0, 100% 100%, 0% 100%) crea un rectángulo completo, lo que significa que la .navbar será visible cuando el checkbox esté marcado.*/
+    header #toggler:checked ~ .navbar{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .icons a{
+        font-size: 2rem;
+    }
+
+    header .navbar a{
+        margin: 1.5rem;
+        padding: 1.5rem;
+        background: #fcfafa ;
+        border: .1rem solid rgba(0, 0, 0, .1) ;
+        display: block;
+        color: var(--pantone518morado);
+    }
+
+    .home .content h3{
+        font-size: 5rem;
+    }
+
+    .home .content span{
+        font-size: 2.5rem;
+    }
+
+    .heading{
+        text-align: center;
+        font-size: 4rem;
+        color: #fdfdfd;
+        padding: 0.5rem;
+        margin:0.5rem 0;
+        background: rgba(228, 5, 5, 0.623);
+        padding-top: 0.5%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+        text-shadow: 2px 2px 4px rgb(0, 0, 0);
+        text-transform: none;
+    }
+
+    
+    .about .row .content h3{
+        text-align: center;
+    }
+
+    .about .row .content p{
+        text-align: justify;
+    }
+}
+
+    @media (max-width:450px){
+        html{
+            font-size: 85%;
+        }
+    
+        header{
+            padding: 1.5rem;
+        } 
+
+        .heading{
+            font-size: 3rem;
+        }
+
+        .heading{
+            text-align: center;
+            font-size: 4rem;
+            color: #fdfdfd;
+            padding: 0.5rem;
+            margin:0.5rem 0;
+            background: rgba(228, 5, 5, 0.623);
+            padding-top: 0.5%; /*para que el about no se esconda en el navbar, en el video no esta pero a mi se me tapa*/
+            text-shadow: 2px 2px 4px rgb(0, 0, 0);
+            text-transform: none;
+        }
+
+        .about .row .content h3{
+            text-align: center;
+        }
+
+        .about .row .content p{
+            text-align: justify;
+        }
+
+        .about .row .video-container h3{
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            font-size: 1rem;  /*para cambiar el tamaño de la letra del video */
+            /* color: #333; */
+            background: #ffffff;
+            width: 100%;
+            padding: 1rem 2rem;
+            text-align: center;
+            mix-blend-mode: screen;
+        }
+        
+        .about .row .content{
+            flex: 1 1 40rem;
+        }
+        
+
+
+/* NAVBAR EN RESPONSIVE*/
+
+        header .navbar{
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: #ba0808;
+            border-top: .1rem solid rgba(0, 0, 0, .1);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /*esconde el menu desplegable*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+    /*esconde el menu desplegable mediante el checked:*/ 
+    /*polygon(0 0, 100% 0, 100% 100%, 0% 100%) crea un rectángulo completo, lo que significa que la .navbar será visible cuando el checkbox esté marcado.*/
+        header #toggler:checked ~ .navbar{
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+    
+        header .icons a{
+            font-size: 2rem;
+        }
+    
+        header .navbar a{
+            margin: 1.5rem;
+            padding: 1.5rem;
+            background: #f3d567 ;
+            border: .1rem solid rgba(0, 0, 0, .1) ;
+            color: #ffffff;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+    
+        .home .content h3{
+            font-size: 5rem;
+        }
+    
+        .home .content span{
+            font-size: 2.5rem;
+        }
+    
+        .icons-container .icons h3{
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+
+        /*libros - seccion en el catalogo*/
+
+.libros-grid {
+    margin-top: 2.5%;
+    padding-top: 4%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    list-style: none;
+    align-items: center;
+    text-align: center;
+}
+
+
+    }
+
