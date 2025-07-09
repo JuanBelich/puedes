@@ -10,21 +10,30 @@
 
 {% load groups %}
     <h1 class="titulo-catalogo" >Libros Disponibles</h1>
+    {% if user|has_group:"Bibliotecario" %}
+       <div class="text-center my-1">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro">
+          Agregar libro
+        </button>
+      </div>
+    {% endif %}
 
-    <ul class="libros-grid">
+    <ul class="libros-grid mt-1">
         
         {% for Libro in Libros %}
 
             <li class="libro-item">
                 <div class="libro-imagen">
-                  <img src=" {{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
-                </div>
+                  <img src="{{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
+                </div> 
 
+
+                 <!-- Button trigger modal -->
                 <div class="libro-info">
                  
                         <h3 class="libro-titulo">{{ Libro.nombre_libro }}</h3>
                         
-                                   
+
                     <p class="libro-autor">{{ Libro.autor }}</p>
                     <p class="libro-genero">Género: {{ Libro.genero }}</p>
                     <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
@@ -55,10 +64,7 @@
     </ul>
 
 
-    <!-- Button trigger modal -->
-    {% if user|has_group:"Bibliotecario" %}
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro"> Agregar libro </button>
-    {% endif %}
+   
 
 
     <!-- Modal -->

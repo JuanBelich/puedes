@@ -37,7 +37,7 @@
         <a href="{% url 'about' %}">Acerca de Nosotros</a>
         {% if user.is_authenticated %}
         <a href="{%url 'perfil' %}">Perfil</a>
-        <a href="{%url 'singout' %}">Cerrar Sesión</a>
+        {% comment %} <a href="{%url 'singout' %}">Cerrar Sesión</a> {% endcomment %}
         {% endif %}
     </nav>
 

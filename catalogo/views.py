@@ -1,4 +1,6 @@
 import os
+from django.views.decorators.http import require_POST
+from django.core.mail import send_mass_mail
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from catalogo.forms import CustomUserCreationForm, CustomAuthenticationForm
@@ -14,11 +16,11 @@ from .models import *
 
 def catalogo(request):
     # Obtiene todos los libros y géneros de la base de datos
-    libros = Libro.objects.all()
+    libro = Libro.objects.all()
     generos = Genero.objects.all()
     formulario = LibrosForm()
     ctx= {
-        "Libros": libros,
+        "Libros": libro,
         "Generos": generos,
         'formulario': formulario
     }
@@ -52,25 +54,26 @@ def eliminar_libro(request,id):
 
 def editar_libro(request,id):
     # Busca el libro por su id
-    libro = get_object_or_404(Libro, id=id)
+    libros = get_object_or_404(Libro, id=id)
     
     if request.method == 'GET':
         # Si la solicitud es GET, busca el libro por su id
-        formulario = LibrosForm(instance=libro)
+        formulario = LibrosForm(instance=libros)
         # Crea un formulario con los datos del libro    
         contexto= {
             'formulario': formulario,
-            'libro': libro,
+            "Libros": libros,
             'generos': Genero.objects.all(),
         }
+        print(libros.portada.path)
         return render(request, 'editar_libro.html', contexto)
     
     elif request.method == 'POST':
         # Guarda la ruta de la portada anterior antes de actualizar
-        portada_anterior = libro.portada.path if libro.portada else None
+        portada_anterior = libros.portada.path if libros.portada else None
 
         # Crea un formulario con los datos enviados
-        formulario = LibrosForm(request.POST, request.FILES, instance=libro)
+        formulario = LibrosForm(request.POST, request.FILES, instance=libros)
         if formulario.is_valid():
             # Si se subió una nueva portada, elimina la anterior después de guardar
             nueva_portada = 'portada' in request.FILES
@@ -165,9 +168,11 @@ def perfil(request):
     if not request.user.is_authenticated:
         return redirect('singin')
     perfil = Perfil.objects.get(user=request.user)
+    generos = Genero.objects.all()
     return render(request, 'profile.html', {
         'user': request.user,
         'perfil': perfil,
+        "Generos": generos,
     })
     
 @login_required
@@ -185,6 +190,33 @@ def recuperar(request):
 
 def es_bibliotecario(user):
     return user.groups.filter(name='Bibliotecario').exists()
+
+
+@user_passes_test(es_bibliotecario)
+@require_POST
+def agregar_genero(request):
+    genero = request.POST.get('genero')
+    if genero:
+        Genero.objects.create(genero=genero)
+    return redirect('perfil')
+
+@user_passes_test(es_bibliotecario)
+@require_POST
+def editar_genero(request, genero_id):
+    genero = get_object_or_404(Genero, id=genero_id)
+    nombre = request.POST.get('nombre')
+    if nombre:
+        genero.nombre = nombre
+        genero.save()
+    return redirect('perfil')
+
+@user_passes_test(es_bibliotecario)
+@require_POST
+def eliminar_genero(request, genero_id):
+    genero = get_object_or_404(Genero, id=genero_id)
+    genero.delete()
+    return redirect('perfil')
+
 
 @user_passes_test(es_bibliotecario)
 def buscar_usuario(request):
@@ -216,6 +248,39 @@ def modificar_saber(request, user_id):
         perfil.saber = nuevo_saber
         perfil.save()
     return redirect('buscar_usuario')
+
+@user_passes_test(lambda u: u.groups.filter(name='Bibliotecario').exists())
+def enviar_mensaje_todos(request):
+    mensaje_enviado = False
+    if request.method == 'POST':
+        mensaje = request.POST.get('mensaje')
+        asunto = "Mensaje de la Biblioteca"
+        from_email = 'tucorreo@tudominio.com'  # Cambia esto por tu correo
+        usuarios = User.objects.exclude(email='').values_list('email', flat=True)
+        mensajes = [(asunto, mensaje, from_email, [email]) for email in usuarios]
+        send_mass_mail(mensajes, fail_silently=False)
+        mensaje_enviado = True
+    # Renderiza el perfil con el mensaje de éxito
+    perfil = Perfil.objects.get(user=request.user)
+    return render(request, 'profile.html', {
+        'perfil': perfil,
+        'mensaje_enviado': mensaje_enviado,
+        # Agrega aquí otras variables de contexto que uses en tu perfil
+    })
+    
+# ===========================
+# MUY IMPOTANTE:
+# CONFIGURAR DATOS DE MAILS PARA ENVIO DE NOTIFICACIONES
+# Asegúrate de configurar los datos de tu correo en settings.py
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'tucorreo@gmail.com'         # Tu correo
+# EMAIL_HOST_PASSWORD = 'tu_contraseña_de_app'   # Contraseña de aplicación (no la de tu cuenta)
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# ===========================
+
 
 
 

@@ -20,6 +20,10 @@ urlpatterns = [
     path('favorito/<int:libro_id>/', toggle_favorito, name='toggle_favorito'),
     path('buscar_usuario/', buscar_usuario, name='buscar_usuario'),
     path('modificar_saber/<int:user_id>/', modificar_saber, name='modificar_saber'),
+    path('enviar_mensaje_todos/', enviar_mensaje_todos, name='enviar_mensaje_todos'),
+    path('agregar_genero/', agregar_genero, name='agregar_genero'),
+    path('editar_genero/<int:genero_id>/', editar_genero, name='editar_genero'),
+    path('eliminar_genero/<int:genero_id>/', eliminar_genero, name='eliminar_genero'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
