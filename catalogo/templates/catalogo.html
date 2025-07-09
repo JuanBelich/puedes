@@ -19,9 +19,9 @@
     {% endif %}
 
     <ul class="libros-grid mt-1">
-        
-        {% for Libro in Libros %}
 
+        {% for Libro in Libros %}
+                    
             <li class="libro-item">
                 <div class="libro-imagen">
                   <img src="{{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
@@ -38,14 +38,16 @@
                     <p class="libro-genero">Género: {{ Libro.genero }}</p>
                     <p class="libro-valor">{{ Libro.valor_saberes }} saberes</p>
                     
-                    <form action="{% url 'toggle_favorito' Libro.id %}" method="post">
+                    {% if user.is_authenticated %}
+                      <form action="{% url 'toggle_favorito' Libro.id %}" method="post">
                         {% csrf_token %}
                         {% if Libro in request.user.perfil.favoritos.all %}
-                            <button type="submit">Quitar de favoritos</button>
+                        <button type="submit">Quitar de favoritos</button>
                         {% else %}
-                            <button type="submit">Agregar a favoritos</button>
+                        <button type="submit">Agregar a favoritos</button>
                         {% endif %}
-                    </form>
+                      </form>
+                    {% endif %}
                     
                 </div>
 

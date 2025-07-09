@@ -91,10 +91,12 @@ def editar_libro(request,id):
 # Apartado de login
 
 def singin(request):
+    # Verifica si el usuario ya está autenticado
     if request.method == 'GET':
         return render(request, 'singin.html', {
             'form': CustomAuthenticationForm,
         })
+    # Si el usuario no está autenticado, intenta autenticarlo
     elif request.method == 'POST':
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         
@@ -114,7 +116,7 @@ def singin(request):
                 'perfil': perfil,
             })
 
-
+# Apartado de registro
 def singup(request):
     if request.method == 'GET':
         print('mostrando formulario')
@@ -159,11 +161,14 @@ def singup(request):
         'error': 'las contraseñas no coinciden'
     })
     
-    
+# Apartado de logout
+@login_required
 def singout(request):
     logout(request)
     return redirect('index')
 
+# Apartado de perfil
+@login_required
 def perfil(request):
     if not request.user.is_authenticated:
         return redirect('singin')
