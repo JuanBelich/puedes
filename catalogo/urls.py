@@ -9,6 +9,7 @@ urlpatterns = [
     path('singin', singin, name='singin'),
     path('singup/', singup, name='singup'),
     path('perfil/', perfil, name='perfil'),
+    path('editar_perfil/', editar_perfil, name='editar_perfil'),
     path('logout/', singout, name='singout'),
     path('catalogo/',catalogo, name= 'catalogo'),
     path('recuperar/', recuperar, name='recuperar'),

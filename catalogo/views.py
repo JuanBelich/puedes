@@ -3,7 +3,7 @@ from django.views.decorators.http import require_POST
 from django.core.mail import send_mass_mail
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
-from catalogo.forms import CustomUserCreationForm, CustomAuthenticationForm
+from catalogo.forms import CustomUserCreationForm, CustomAuthenticationForm, PerfilForm
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.models import User, Group
@@ -141,6 +141,7 @@ def singup(request):
                     apellido=request.POST.get('apellido'),
                     telefono=request.POST.get('telefono'),
                     direccion=request.POST.get('direccion'),
+                    email=request.POST.get('email'),
                     barrio=request.POST.get('barrio'),
                     edad=request.POST.get('edad'),
                     saber=0  # Valor inicial para saber
@@ -179,7 +180,23 @@ def perfil(request):
         'perfil': perfil,
         "Generos": generos,
     })
-    
+
+@login_required
+def editar_perfil(request):
+    perfil = Perfil.objects.get(user=request.user)
+    user = request.user
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save()
+            # Si quieres permitir editar el email:
+            user.email = form.cleaned_data['email']
+            user.save()
+            return redirect('perfil')
+    else:
+        form = PerfilForm(instance=perfil, initial={'email': user.email})
+    return render(request, 'editar_perfil.html', {'form': form})
+
 @login_required
 def toggle_favorito(request, libro_id):
     perfil = Perfil.objects.get(user=request.user)

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center mt-5 pt-5">
+    <h2 class="container text-center mt-5 pt-5">Editar mis datos</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn" style="background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">Guardar cambios</button>
+        <a href="{% url 'perfil' %}" class="btn" style="background-color: #b5121b; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
