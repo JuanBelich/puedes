@@ -7,6 +7,7 @@
 {% block extra_css %}
     <!-- Fuente Poppins opcional -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600display=swap" rel="stylesheet">
+    
     <style>
         body, .font-poppins { font-family: 'Poppins', sans-serif; }
         .favorito-img { width: 150px; height: 450px; object-fit: cover; }
@@ -16,6 +17,30 @@
         .transition-transform:hover {
             transform: translateY(-5px);
         }
+
+        
+        /* ...existing code... */
+@media (max-width: 576px) {
+    /* ...existing code... */
+    /* Libros Favoritos: cada libro ocupa toda la fila en móvil */
+    .row.g-4 > [class^="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+    .favorito-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .card.h-100 {
+        min-height: unset;
+    }
+    .card-body.text-center {
+        padding: 0.75rem;
+    }
+}
+/* ...existing code... */
     </style>
 {% endblock %}
 
