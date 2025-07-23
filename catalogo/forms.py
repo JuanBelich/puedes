@@ -103,42 +103,43 @@ class LibrosForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     autor = forms.CharField(
         label='Autor',
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     edicion = forms.CharField(
         label='Edición',
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
+            
         })
     )
     año = forms.IntegerField(
         label='Año',
         widget=forms.NumberInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     editorial = forms.CharField(
         label='Editorial',
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     isbn = forms.CharField(
         label='ISBN',
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     portada = forms.ImageField(
@@ -146,14 +147,14 @@ class LibrosForm(forms.ModelForm):
         required=False,
         widget=forms.ClearableFileInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     valor_saberes = forms.CharField(
         label='Valor de saberes',
         widget=forms.TextInput(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
     genero = forms.ModelChoiceField(
@@ -161,7 +162,7 @@ class LibrosForm(forms.ModelForm):
         label='Género',
         widget=forms.Select(attrs={
             'class': 'input-control',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-color: white;'
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; border-radius: 5px;'
         })
     )
 
@@ -170,8 +171,9 @@ class LibrosForm(forms.ModelForm):
         label='Reseña',
         widget=forms.Textarea(attrs={
             'class': 'input-control flex-grow-1',
-            'style': 'width: 40%; background-color: #FFD200; border: 1px solid #ccc; border-radius: 5px;',
-
+            'style': 'width: auto; background-color: #D3D3D3; border: 1px solid #ccc; padding: 10px; border-radius: 5px; height: 100px;',
+            'rows': 10,
+            
         })
     )
     

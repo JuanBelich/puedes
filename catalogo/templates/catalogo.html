@@ -23,9 +23,15 @@
         {% for Libro in Libros %}
                     
             <li class="libro-item">
+              {% if Libro.portada.url is not empty %}
                 <div class="libro-imagen">
                   <img src="{{ Libro.portada.url }}" alt="Portada de {{ Libro.nombre_libro }}">
-                </div> 
+                </div>
+              {% else %}
+                <div class="libro-imagen">
+                  <p>No hay imagen disponible</p>
+                </div>
+              {% endif %}
 
 
                  <!-- Button trigger modal -->
