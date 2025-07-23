@@ -121,10 +121,12 @@ def singup(request):
     if request.method == 'GET':
         print('mostrando formulario')
         return render(request, 'singup.html', {'form':CustomUserCreationForm})
-
+    # Si el método es POST, intenta crear un nuevo usuario
     if request.method == 'POST':
+        # Verifica que las contraseñas coincidan
         if request.POST.get('password1') == request.POST.get('password2'):
             try:
+                # Crea un nuevo usuario con los datos del formulario
                 user = User.objects.create_user(
                     username=request.POST.get('username'),
                     password=request.POST.get('password1'),
@@ -141,15 +143,15 @@ def singup(request):
                     apellido=request.POST.get('apellido'),
                     telefono=request.POST.get('telefono'),
                     direccion=request.POST.get('direccion'),
-                    email=request.POST.get('email'),
                     barrio=request.POST.get('barrio'),
                     edad=request.POST.get('edad'),
-                    saber=0  # Valor inicial para saber
+                    saber=0,  # Valor inicial para saber
                     )
+                
                 print(' usuario creado correctamente')
                 login(request, user)
                 return redirect('singin')
-
+            # Maneja el error de integridad si el usuario ya existe
             except IntegrityError:
                 print(f'Error al crear el usuario: el usuario ya existe')
                 return render(request, 'singup.html', {
@@ -171,18 +173,20 @@ def singout(request):
 # Apartado de perfil
 @login_required
 def perfil(request):
+    # Verifica si el usuario está autenticado
+    # Si no está autenticado, redirige al inicio de sesión
     if not request.user.is_authenticated:
         return redirect('singin')
-    perfil = Perfil.objects.get(user=request.user)
+    perfil, creado = Perfil.objects.get_or_create(user=request.user)
     generos = Genero.objects.all()
     return render(request, 'profile.html', {
         'user': request.user,
         'perfil': perfil,
         "Generos": generos,
     })
-
 @login_required
 def editar_perfil(request):
+    # trae el perfil del usuario autenticado
     perfil = Perfil.objects.get(user=request.user)
     user = request.user
     if request.method == 'POST':
@@ -193,11 +197,13 @@ def editar_perfil(request):
             user.email = form.cleaned_data['email']
             user.save()
             return redirect('perfil')
-    else:
+    else:   
+        # Si el método es GET, muestra el formulario con los datos actuales
         form = PerfilForm(instance=perfil, initial={'email': user.email})
     return render(request, 'editar_perfil.html', {'form': form})
 
 @login_required
+# Apartado de favoritos
 def toggle_favorito(request, libro_id):
     perfil = Perfil.objects.get(user=request.user)
     libro = get_object_or_404(Libro, id=libro_id)
@@ -210,6 +216,7 @@ def toggle_favorito(request, libro_id):
 def recuperar(request):
     return render(request, 'recuperar.html')
 
+# Apartado de gestión de géneros
 def es_bibliotecario(user):
     return user.groups.filter(name='Bibliotecario').exists()
 
@@ -219,12 +226,17 @@ def es_bibliotecario(user):
 def agregar_genero(request):
     genero = request.POST.get('genero')
     if genero:
+        # Crea un nuevo género solo si se proporciona un nombre
         Genero.objects.create(genero=genero)
     return redirect('perfil')
 
+# Apartado de edición y eliminación de géneros
+# Estas funciones permiten editar y eliminar géneros existentes
 @user_passes_test(es_bibliotecario)
 @require_POST
 def editar_genero(request, genero_id):
+    # Edita un género por su ID
+    # Obtiene el género por su ID y actualiza su nombre
     genero = get_object_or_404(Genero, id=genero_id)
     nombre = request.POST.get('nombre')
     if nombre:
@@ -232,20 +244,27 @@ def editar_genero(request, genero_id):
         genero.save()
     return redirect('perfil')
 
+# Apartado de eliminación de géneros
 @user_passes_test(es_bibliotecario)
 @require_POST
 def eliminar_genero(request, genero_id):
+    # Elimina un género por su ID
     genero = get_object_or_404(Genero, id=genero_id)
     genero.delete()
     return redirect('perfil')
 
-
+# Apartado de búsqueda de usuarios
+@login_required
 @user_passes_test(es_bibliotecario)
 def buscar_usuario(request):
+    # Permite buscar usuarios por nombre o apellido
+    # Si se proporciona un nombre o apellido, busca los perfiles que coincidan
     usuarios_encontrados = []
     busqueda_realizada = False
+    # Obtiene los parámetros de búsqueda del request
     nombre = request.GET.get('nombre', '').strip()
     apellido = request.GET.get('apellido', '').strip()
+    # Si se proporciona un nombre o apellido, realiza la búsqueda
     if nombre or apellido:
         busqueda_realizada = True
         perfiles = Perfil.objects.all()
@@ -263,6 +282,8 @@ def buscar_usuario(request):
 
 @user_passes_test(es_bibliotecario)
 def modificar_saber(request, user_id):
+    # Permite modificar el nivel de saber de un usuario
+    # Obtiene el usuario por su ID y su perfil
     usuario = get_object_or_404(User, id=user_id)
     perfil = Perfil.objects.get(user=usuario)
     if request.method == 'POST':
@@ -271,13 +292,21 @@ def modificar_saber(request, user_id):
         perfil.save()
     return redirect('buscar_usuario')
 
+# Apartado de envío de mensajes a todos los usuarios
+@login_required
 @user_passes_test(lambda u: u.groups.filter(name='Bibliotecario').exists())
+# Enviar un mensaje a todos los usuarios registrados
 def enviar_mensaje_todos(request):
     mensaje_enviado = False
+    # Verifica si el método de la solicitud es POST
+    # Si es POST, envía el mensaje a todos los usuarios registrados
     if request.method == 'POST':
+        # Obtiene el mensaje del formulario
         mensaje = request.POST.get('mensaje')
         asunto = "Mensaje de la Biblioteca"
         from_email = 'tucorreo@tudominio.com'  # Cambia esto por tu correo
+        # Envía el mensaje a todos los usuarios con correo electrónico
+        # Excluye usuarios sin correo electrónico
         usuarios = User.objects.exclude(email='').values_list('email', flat=True)
         mensajes = [(asunto, mensaje, from_email, [email]) for email in usuarios]
         send_mass_mail(mensajes, fail_silently=False)
@@ -319,6 +348,7 @@ def about(request):
     return render (request, "about.html")
 
 def resenia(request, id):
+    # Obtiene el libro por su ID o devuelve un error 404 si no se encuentra
     libro = get_object_or_404(Libro, id=id)
     ctx = {
         'Libro': libro

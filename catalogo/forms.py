@@ -231,8 +231,7 @@ class PerfilForm(forms.ModelForm):
         })
     )
     class Meta:
-        model = User
-        fields = ['nombre', 'apellido', 'telefono', 'email', 'direccion', 'barrio', 'edad']
-
+        model = Perfil
+        fields = ['nombre', 'apellido', 'telefono', 'direccion', 'barrio', 'edad']
 
 
