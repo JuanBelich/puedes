@@ -9,6 +9,7 @@
 
 
 {% load groups %}
+{% comment %} Este bloque de código es para el catálogo de libros, donde se muestran los libros disponibles {% endcomment %}
     <h1 class="titulo-catalogo" >Libros</h1>
     {% if user|has_group:"Bibliotecario" %}
        <div class="text-center my-1">
@@ -17,7 +18,6 @@
         </button>
       </div>
     {% endif %}
-
     <ul class="libros-grid mt-1">
 
         {% for Libro in Libros %}
