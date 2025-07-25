@@ -138,28 +138,22 @@
                     </div>
                     {% endif %}
                     {% if request.user|has_group:"Bibliotecario" %}
-                        <div class="card my-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Enviar mensaje a todos los usuarios</h5>
-                                <form method="post" action="{% url 'enviar_mensaje_todos' %}">
-                                    {% csrf_token %}
-                                    <div class="mb-3">
-                                        <textarea class="form-control" name="mensaje" rows="4" placeholder="Escribe el mensaje aquí..." required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enviar a todos</button>
-                                </form>
-                                {% if mensaje_enviado %}
-                                    <div class="alert alert-success mt-2">¡Mensaje enviado a todos los correos!</div>
-                                {% endif %}
-                            </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enviarMensajeModal">
+                                Enviar mensajes
+                            </button>
                         </div>
                     {% endif %}
+
+
+
                     <div class="mb-3">
                         <a href="{% url 'singout' %}" class="btn btn-danger">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Columna derecha: Favoritos -->
         <div class="col-lg-8 col-0">
             <div class="card shadow">
@@ -196,6 +190,48 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para enviar mensajes -->
+<div class="modal fade" id="enviarMensajeModal" tabindex="-1" aria-labelledby="enviarMensajeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <form method="post" action="{% url 'enviar_mensaje_personalizado' %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title" id="enviarMensajeModalLabel">Enviar mensajes a usuarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="usuarios" class="form-label">Selecciona usuarios (Ctrl+Click para varios):</label>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="selectAllUsuarios">
+                        <label class="form-check-label" for="selectAllUsuarios">
+                            Seleccionar todos
+                        </label>
+                    </div>
+                    <select name="usuarios" id="usuarios" multiple class="form-select">
+                        {% for usuario in usuarios %}
+                            <option value="{{ usuario.id }}">{{ usuario.username }} ({{ usuario.email }})</option>
+                        {% endfor %}
+                    </select>
+                    <small class="form-text text-muted">Si no seleccionas ninguno, el mensaje se enviará a todos.</small>
+                </div>
+                <div class="mb-3">
+                    <label for="correos_extra" class="form-label">Correos adicionales (separados por coma):</label>
+                    <input type="text" name="correos_extra" id="correos_extra" class="form-control" placeholder="ejemplo@mail.com, otro@mail.com">
+                </div>
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje:</label>
+                    <textarea class="form-control" name="mensaje" id="mensaje" rows="4" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Enviar mensaje</button>
+            </div>
+        </form>
         </div>
     </div>
 </div>
@@ -281,6 +317,17 @@ document.addEventListener('DOMContentLoaded', function() {
             editGeneroId.value = generoId;
             editGeneroNombre.value = generoNombre;
             editarGeneroForm.setAttribute('action', `/editar_genero/${generoId}/`);
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAll = document.getElementById('selectAllUsuarios');
+    const usuariosSelect = document.getElementById('usuarios');
+    if (selectAll && usuariosSelect) {
+        selectAll.addEventListener('change', function() {
+            for (let option of usuariosSelect.options) {
+                option.selected = selectAll.checked;
+            }
         });
     }
 });

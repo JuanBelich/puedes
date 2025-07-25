@@ -23,7 +23,7 @@ class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
         label='Nombre de usuario',
         widget=forms.TextInput(attrs={
-            'class': 'input-control'
+            'class': 'input-control',
         })
     )
     

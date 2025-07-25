@@ -25,6 +25,6 @@ urlpatterns = [
     path('agregar_genero/', agregar_genero, name='agregar_genero'),
     path('editar_genero/<int:genero_id>/', editar_genero, name='editar_genero'),
     path('eliminar_genero/<int:genero_id>/', eliminar_genero, name='eliminar_genero'),
-]
+    path('enviar_mensaje_personalizado/', enviar_mensaje_personalizado, name='enviar_mensaje_personalizado'),]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,6 @@
 import os
 from django.views.decorators.http import require_POST
-from django.core.mail import send_mass_mail
+from django.core.mail import send_mass_mail, send_mail
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render
 from catalogo.forms import CustomUserCreationForm, CustomAuthenticationForm, PerfilForm
@@ -179,10 +179,12 @@ def perfil(request):
         return redirect('singin')
     perfil, creado = Perfil.objects.get_or_create(user=request.user)
     generos = Genero.objects.all()
+    usuarios = User.objects.exclude(email='').all()
     return render(request, 'profile.html', {
         'user': request.user,
         'perfil': perfil,
         "Generos": generos,
+        "usuarios": usuarios,
     })
 @login_required
 def editar_perfil(request):
@@ -314,11 +316,46 @@ def enviar_mensaje_todos(request):
     # Renderiza el perfil con el mensaje de éxito
     perfil = Perfil.objects.get(user=request.user)
     return render(request, 'profile.html', {
-        'perfil': perfil,
-        'mensaje_enviado': mensaje_enviado,
-        # Agrega aquí otras variables de contexto que uses en tu perfil
-    })
-    
+    'perfil': perfil,
+    'usuarios': usuarios,
+    'mensaje_enviado': mensaje_enviado,
+})
+
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Bibliotecario').exists())
+def enviar_mensaje_personalizado(request):
+    mensaje_enviado = False
+    if request.method == 'POST':
+        usuarios = request.POST.getlist('usuarios')  
+        correos_extra = request.POST.get('correos_extra', '')
+        mensaje = request.POST.get('mensaje')
+        asunto = "Mensaje de la Biblioteca"
+        from_email = settings.DEFAULT_FROM_EMAIL
+
+        correos = list(
+        
+        User.objects.filter(id__in=usuarios).exclude(email='').values_list('email', flat=True)
+        )
+        # Correos adicionales escritos manualmente
+        if correos_extra:
+            correos += [c.strip() for c in correos_extra.split(',') if c.strip()]
+
+        # Si no se seleccionó ningún usuario ni correo extra, enviar a todos
+        if not correos:
+            correos = list(User.objects.exclude(email='').values_list('email', flat=True))
+
+        send_mail(asunto, mensaje, from_email, correos, fail_silently=False)
+        mensaje_enviado = True
+
+        # Para mostrar el formulario correctamente
+        usuarios = User.objects.exclude(email='').values_list('username', flat=True)
+        perfil = Perfil.objects.get(user=request.user)
+        print("Usuarios disponibles para enviar mensajes:", usuarios)
+        return render(request, 'profile.html', {
+            'usuarios': usuarios,
+            'perfil': perfil,
+            'mensaje_enviado': mensaje_enviado,
+        })
 # ===========================
 # MUY IMPOTANTE:
 # CONFIGURAR DATOS DE MAILS PARA ENVIO DE NOTIFICACIONES

@@ -9,7 +9,7 @@
 
 
 {% load groups %}
-    <h1 class="titulo-catalogo" >Libros Disponibles</h1>
+    <h1 class="titulo-catalogo" >Libros</h1>
     {% if user|has_group:"Bibliotecario" %}
        <div class="text-center my-1">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro">

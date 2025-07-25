@@ -2,7 +2,31 @@
 {% load static %}
 
 {% block content %}
+<style> .home 
+        background-image: url("{% static 'img/home-background.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        /* Estilos personalizados para los modals de las cards de inicio */
+        .modal-content {
+            background-color: #FFD200 !important; /* Fondo amarillo */
+        }
 
+        .modal-title {
+            color: #111 !important;               /* Título negro */
+            text-transform: none !important;      /* Sin mayúsculas forzadas */
+            font-weight: bold;
+            font-size: 1.3rem;
+            /* Solo la primera letra en mayúscula si el HTML está bien escrito */
+        }
+
+        .modal-body {
+            color: #7F1434 !important;            /* Texto bordo */
+            text-transform: none !important;      /* Sin mayúsculas forzadas */
+            font-size: 1.1rem;
+            /* Solo la primera letra en mayúscula si el HTML está bien escrito */
+        }
+</style>
+    
 
 <!-- Header Section ends-->
 
@@ -15,7 +39,7 @@
         <h3>PUEDES</h3>
         <span>Biblioteca Popular de Bella Vista</span>
         <p>Sistema de lectura, intercambio de libros entre la Universidad Nacional de Córdoba y la biblioteca del barrio Bella Vista</p>
-        {% comment %} <a href="#" class="btn">Catálogo</a> {% endcomment %}
+        
     </div>  
 
 </section>
@@ -24,40 +48,118 @@
 
 <!-- icons section starts -->
 
-<section class="icons-container">
+<section class="icons-container" >
 
+<!--DONA UN LIBRO-->
     <div class="icons">
         <img  src="{% static 'img/donate-a-book.jpg' %}" alt="Donar un libro" class="img_icons">
         <div >
-            <h3 class="h-home-page">Doná un libro</h3>
+            <h3 class="h-home-page"><button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#donaLibroModal" style="color: #7F1434; font-weight: bold;">
+    Dona un libro
+</button></h3>
         </div>
     </div>
+
+<div class="modal fade" id="donaLibroModal" tabindex="-1" aria-labelledby="donaLibroModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered",  text-transform: "none";/>
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="donaLibroModalLabel" style="color: #7F1434;">¿Qué significa "Dona un libro"?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="color: #7F1434; font-size: 1.1rem; text-transform: "none" ">
+        Donar un libro es una forma de compartir conocimiento y cultura con otras personas de la comunidad. Si tienes libros que ya no usas, puedes acercarlos a la biblioteca para que otros puedan disfrutarlos y aprender de ellos. ¡Tu aporte es muy valioso!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--INTERCAMBIA LIBROS-->
 
     <div class="icons">
         <img   src="{% static 'img/intercambiar-libro.jpg' %}" alt="Intercambia libros" class="img_icons">
         <div >
-            <h3 class="h-home-page">Intercambiá libros</h3>
+            <h3 class="h-home-page">
+  <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#intercambiaLibrosModal" style="color: #7F1434; font-weight: bold;">
+    Intercambia libros
+  </button>
+</h3></h3>
             <span></span>
         </div>
     </div>    
 
+<!-- Modal para Intercambia libros -->
+<div class="modal fade" id="intercambiaLibrosModal" tabindex="-1" aria-labelledby="intercambiaLibrosModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="intercambiaLibrosModalLabel" style="color: #7F1434;">¿Qué significa "Intercambia libros"?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="color: #7F1434; font-size: 1.1rem;">
+        Intercambiar libros te permite renovar tus lecturas y compartir historias con otras personas de la comunidad. Trae un libro que ya leíste y llévate uno nuevo para seguir explorando nuevos mundos. ¡El intercambio es gratuito y abierto para todos!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--CONOCE NUEVOS MUNDOS--> 
+
     <div class="icons">
         <img  src="{% static 'img/lectura.jpg' %}" alt="Conocé nuevos mundos"  class="img_icons">
         <div >
-            <h3 class="h-home-page">Conocé nuevos mundos</h3>
+            <h3 class="h-home-page"><div >
+    <h3 class="h-home-page">
+      <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#conoceMundosModal" style="color: #7F1434; font-weight: bold;">
+        Conocé nuevos mundos
+      </button>
+    </h3>
+    <span></span>
+</div></h3>
             <span></span>
         </div>
     </div>
 
+    <div class="modal fade" id="conoceMundosModal" tabindex="-1" aria-labelledby="conoceMundosModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="conoceMundosModalLabel" style="color: #7F1434;">¿Qué significa "Conocé nuevos mundos"?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="color: #7F1434; font-size: 1.1rem;">
+        Leer es viajar sin moverse del lugar. Cada libro te invita a descubrir historias, culturas y perspectivas diferentes. ¡Animate a explorar nuevos mundos a través de la lectura y deja volar tu imaginación!
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!--COMPARTI IDEAS -->
     <div class="icons">
         <img   src="{% static 'img/grupo-de-lectura.png' %} " alt="Intercambia ideas con otros lectores" class="img_icons">
         <div >
-            <h3 class="h-home-page">Compartí ideas</h3>
+            <h3 class="h-home-page"><h3 class="h-home-page">
+  <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#compartiIdeasModal" style="color: #7F1434; font-weight: bold;">
+    Compartí ideas
+  </button>
+</h3></h3>
             <span></span>
         </div>
     </div>
 
-
+<div class="modal fade" id="compartiIdeasModal" tabindex="-1" aria-labelledby="compartiIdeasModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="compartiIdeasModalLabel" style="color: #2c0813ff;">¿Qué significa "Compartí ideas"?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="color: #7F1434; font-size: 1.1rem;">
+        Compartir ideas es una oportunidad para dialogar, debatir y aprender junto a otros lectores. Participá en nuestros encuentros, recomendá libros y enriquecé tu experiencia de lectura con la mirada de la comunidad.
+      </div>
+    </div>
+  </div>
+</div>
 
 </section>
 
