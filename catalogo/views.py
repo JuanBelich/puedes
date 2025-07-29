@@ -15,17 +15,19 @@ from .models import *
 # Apartado de Libros
 
 def catalogo(request):
-    # Obtiene todos los libros y géneros de la base de datos
-    libro = Libro.objects.all()
+    genero_id = request.GET.get('genero')
+    if genero_id:
+        libro = Libro.objects.filter(genero_id=genero_id)
+    else:
+        libro = Libro.objects.all().order_by('genero')
     generos = Genero.objects.all()
     formulario = LibrosForm()
-    ctx= {
+    ctx = {
         "Libros": libro,
         "Generos": generos,
         'formulario': formulario
     }
-    # Renderiza la plantilla 'catalogo.html' con los libros y géneros
-    return render (request,'catalogo.html',ctx)
+    return render(request, 'catalogo.html', ctx)
 
 def agregar_libro(request):
 
@@ -375,7 +377,7 @@ def enviar_mensaje_personalizado(request):
 #Apartado general
 
 def index(request):
-    libros = Libro.objects.all()
+    libros = Libro.objects.all().order_by('genero')  # Ordena por género
     ctx= {
         "Libros": libros
     }

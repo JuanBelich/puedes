@@ -12,14 +12,23 @@
 {% comment %} Este bloque de código es para el catálogo de libros, donde se muestran los libros disponibles {% endcomment %}
     <h1 class="titulo-catalogo" >Libros</h1>
     {% if user|has_group:"Bibliotecario" %}
-       <div class="text-center my-1">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro">
-          Agregar libro
-        </button>
-      </div>
+        <div class="text-center my-1">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro">
+            Agregar libro
+          </button>
+        </div>
     {% endif %}
-    <ul class="libros-grid mt-1">
+    <div class="mb-3 text-center">
+    <a href="{% url 'catalogo' %}" class="btn btn-warning btn-lg {% if not request.GET.genero %}active{% endif %}">Todos</a>
+    {% for genero in Generos %}
+        <a href="{% url 'catalogo' %}?genero={{ genero.id }}" class="btn btn-outline-danger btn-lg {% if request.GET.genero == genero.id|stringformat:'s' %}active{% endif %}">
+            {{ genero.genero }}
+          </a>
+          {% endfor %}
 
+    </div>
+    <ul class="libros-grid mt-1">
+      
         {% for Libro in Libros %}
                     
             <li class="libro-item">
